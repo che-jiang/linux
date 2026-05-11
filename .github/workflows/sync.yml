@@ -1,0 +1,17 @@
+name: Sync Fork
+on:
+  schedule:
+    - cron: '23 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync upstream master
+        env:
+          GH_TOKEN: ${{ secrets.SYNC_TOKEN }}
+        run: gh repo sync che-jiang/linux -b master --force
